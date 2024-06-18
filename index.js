@@ -1,9 +1,12 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const fs = require('fs')
 const app = express()
 const port = process.env.PORT || 3000
 
-process.loadEnvFile('./.env');
+if (fs.existsSync('./.env')) {
+    process.loadEnvFile('./.env');
+}
 
 const config = {
     apiUrl: process.env.API_URL || 'https://gitlab.com/api/v4',
