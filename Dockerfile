@@ -1,8 +1,9 @@
-FROM alpine:3.20
+FROM node:22-alpine3.19
 
-RUN apk add --no-cache jq curl
+WORKDIR /app
 
-COPY back-merge-request.sh /
-RUN chmod +x /back-merge-request.sh
+COPY index.js package.json package-lock.json .env ./
 
-ENTRYPOINT ["/back-merge-request.sh"]
+RUN npm ci
+
+ENTRYPOINT ["node", "index.js"]
